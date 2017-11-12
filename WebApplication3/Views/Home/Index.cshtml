@@ -1,31 +1,158 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿
+<html>
+<input type="button" id="btn_start" value="Start" />
+@*<table class="table">
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+    <tr>
+        <th id="Experience"></th>
+        
+    </tr>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+</table>*@
+
+<head>
+    You are a Night Elf Druid that just spawned in Shadowglen
+</head>
+
+<body>
+    <progress id="health" value="100" max="100">player health</progress>
+    <progress id="healthEnemy" value="100" max="100" > enemy health</progress>
+</body>
+
+</html>
+
+
+<audio id="audio" src="http://www.musicofwarcraft.com/music/kalimdor/ashenvale.mp3"></audio>
+<audio id="Darkshore" src="http://www.musicofwarcraft.com/music/kalimdor/darkshore.mp3"></audio>
+<audio id="NEDamage" src="~/Sounds/NEWound.wav"></audio>
+<audio id="BoarAggro" src="~/Sounds/BoarAggro.wav"></audio>
+<audio id="BoarAttack" src="~/Sounds/BoarAttack.wav"></audio>
+<audio id="Shadowglen" src="~/Sounds/Shadowglen.wav"></audio>
+<audio id="wrath" src="~/Sounds/wrath.wav"></audio>
+
+<img id="myImage" height="300" width="300" />
+<img id="myImage2" height="300" width="300" />
+
+
+<p id="text_box">Go right or attack</p>
+
+<input type="button" id="btn_click_left" value="Attack" />
+<input type="button" id="btn_click_right" value="Go North" />
+
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script type="text/javascript">
+    
+    function stopAllAudio() {
+        allAudios.forEach(function (audio) {
+            audio.pause();
+        });
+    }
+
+    $('#btn_start').click(function () {
+
+
+        Shadowglen.play();
+
+        var allAudios = document.querySelectorAll('audio');
+
+
+
+
+        var image = document.getElementById("myImage");
+        var image2 = document.getElementById("myImage2");
+
+        image.src = "/Images/Shadowglen.jpg"
+        image2.src = "/Images/game_logo.png"
+
+        $('#btn_click_right').click(function () {
+            var audioDarkshore = document.getElementById("Darkshore");
+            function stopAllAudio() {
+                allAudios.forEach(function (audio) {
+                    audio.pause();
+                });
+            }
+            stopAllAudio();
+            audioDarkshore.play();
+            image.src = "/Images/young_thistle_boar.jpg"
+            $('#text_box').text("You discover a Neutral Young Thistle Boar")
+            //var stuff = 1;
+            //$.ajax({
+            //    url: '/home/Choice',
+            //    type: 'POST',
+
+            //    data: { "i": stuff },
+            //    success: function (data) {
+            //        //alert("success");
+            //        image2.src = "/Images/young_thistle_boar.jpg"
+            //        $('#text_box').text("You discover a Neutral Young Thistle Boar")
+
+            //        $('#Experience').text(data.hunger)
+
+            //        stuff = 0;
+            //    },
+            //    error: function () {
+            //        alert('error');
+            //    }
+
+            //});
+        });
+
+
+
+        $('#btn_click_left').click(function () {
+
+
+
+            image.src = "/Images/Shadowglen.jpg"
+            image2.src = "/Images/nightElves.png"
+
+            var Shadowglen = document.getElementById("Shadowglen");
+            var NEWound = document.getElementById("NEDamage");
+            var BoarAttack = document.getElementById("BoarAttack");
+            var BoarAggro = document.getElementById("BoarAggro");
+            var wrath = document.getElementById("wrath");
+
+            var delayInMilliseconds = 3000; //1 second
+            var delayInMilliseconds = 1000; //1 second
+
+
+            BoarAggro.play();
+
+            setTimeout(function () {
+
+                let health = document.getElementById("health")
+                health.value -= 10;
+                $('#text_box').text("boar hits you for 10 health")
+                BoarAttack.play();
+                image.src = "/Images/young_thistle_boar.jpg"
+            }, delayInMilliseconds);
+
+
+            let health = document.getElementById("healthEnemy")
+            health.value -= 30;
+            $('#text_box').text("Your wrath hits the boar for 30 hp!")
+            wrath.play();
+            image2.src = "/Images/wrath.jpg"
+
+
+            //var stuff = 2;
+            //$.ajax({
+            //    url: '/home/Choice',
+            //    type: 'POST',
+
+            //    data: { "i": stuff },
+            //    success: function (data) {
+            //        //alert("success");
+
+            //        $('#Experience').text(data.hunger)
+
+            //        stuff = 0;
+            //    },
+            //    error: function () {
+            //        alert('error');
+            //    }
+
+            //});
+        });
+    });
+</script>
